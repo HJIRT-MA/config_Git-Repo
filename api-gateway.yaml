@@ -6,3 +6,23 @@ spring:
           allowedOrigins: "*"
           allowedMethods: "*"
           allowedHeaders: "*"
+
+      routes:
+        # 1- pipeline-service
+        - id: pipeline-service
+          uri: lb://pipeline-service
+          predicates:
+            - Path=/api/v1/piplines/**
+
+        # 2- Deployment Service
+        - id: deployment-service
+          uri: lb://deployment-service
+          predicates:
+            - Path=/api/v1/deployments/**
+
+
+        # 3- Test Results Service
+        - id: test-results-service
+          uri: lb://test-results-service
+          predicates:
+            - Path=/api/v1/tests/**
